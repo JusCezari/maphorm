@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<title>Maphorm - Plugin to make location inputs in forms</title>
+	<meta name="description" content="Plugin to make location inputs in forms using Google Maps" />
+	<meta name="author" content="Julio de Lara" />
+	<meta name="robots" content="index,follow"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" type="text/css" href="public/css/maphorm.css">
+
+</head>
+
+<body>
+
+	<form name="form-with-map">
+		
+		<div class="maphorm"></div>
+
+	</form>
+
+	<!-- Load the jQuery script, the version used in this example is the version 1.11.3 -->
+	<script type="text/javascript" src="public/js/jquery.min.js"></script>
+	<!-- Load the script for the Maphorm plugin -->
+	<script type="text/javascript" src="public/js/maphorm.min.js"></script>
+
+	<!-- Call the Google Maps JS with a callback that contains the plugin instance -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0TSkAt8e-CNskMw3MngjvUBq6hEWNRrE&callback=maphormInstances"></script>
+
+	<script type="text/javascript">
+	// Function with the plugin that will be called as a callback for the Google Maps JS loading
+	function maphormInstances(){
+		// Call the plugin with no options
+		$('.maphorm').maphorm();
+	}
+	</script>
+
+</body>
+
+</html>
