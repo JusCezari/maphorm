@@ -13,7 +13,9 @@
             // Default location for center in case the geolocation doesn't works
             defaultLocation: {lat: 26.12295, lng: -80.17122},
             // Location defined by the user to not use the geolocation
-            location: false
+            location: false,
+            // Marker in the initial position
+            initialMarker: false
         }, options );
 
         // Variable to keep the context
@@ -30,6 +32,8 @@
 	        	if(settings.location){
 	        		// Use it as coords for the map
 	        		coords = settings.location;
+	        		// Draw the map
+	        		methods.drawMaps(coords);
 	        	}else{
 	        		// If there isn't a defined location try to use the geolocalization
 	        		if (navigator.geolocation) {
@@ -74,6 +78,21 @@
 				    
 				    // Create the variable used for the marker
 		        	var marker;
+
+		        	// If it is set to show the marker in the initial position
+		        	if(settings.initialMarker){
+		        		marker = new google.maps.Marker({
+	                        position: coords,
+	                        map: map,
+	                        draggable: false
+	                    });
+
+	                    // Set the latitude value in the correct hidden input
+		                $('input[name="latitude' + additionalIndex +'"]').val(coords.lat);
+		                // Set the longitude value in the correct hidden input
+		                $('input[name="longitude' + additionalIndex +'"]').val(coords.lng);
+		        	}
+
 				    // Adds a listener for click event that handdles all the magic for the marker appearing at the right position
 				    google.maps.event.addListener(map, 'click', function(event) {
 				    	// If the marker isn't created then creates it
