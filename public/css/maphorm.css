@@ -1,5 +1,18 @@
-.maphorm {
-    width: 640px;
-    height: 480px;
-    margin: auto;
+.maphorm,
+#maphorm {
+    width: 500px;
+    height: 300px;
+}
+
+.floating-address-panel {
+    width: 500px;
+}
+
+.floating-address-panel .address-input {
+    width: 70%;
+	box-sizing: border-box;
+}
+
+.floating-address-panel .submit-address-panel {
+    width: 30%;
 }

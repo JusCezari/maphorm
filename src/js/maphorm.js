@@ -17,7 +17,13 @@
             // Marker in the initial position
             initialMarker: false,
             // Selector for the marker cleaner
-            markerCleaner: false
+            markerCleaner: false,
+            // Disable the default UI
+            disableUI: true,
+            // Set the address input to search by address string
+            addressInput: true,
+            // Set the string for the submit button at the address panel
+            addressButtonString: 'Search',
         }, options );
 
         // Variable to keep the context
@@ -75,7 +81,9 @@
 		        		// Zoom level of the map
 		        		'zoom': settings.zoom, 
 		        		// Type of the map
-		        		'mapTypeId': google.maps.MapTypeId.ROADMAP 
+		        		'mapTypeId': google.maps.MapTypeId.ROADMAP,
+		        		// Disable the default UI
+		        		'disableDefaultUI': settings.disableUI
 		        	}
 		        	// Create the map
 				    map = new google.maps.Map(el, opts);
@@ -92,6 +100,31 @@
 				    // Append the longitude hidden element
 				    $(el).append('<input type="hidden" name="longitude' + additionalIndex + '">');
 				    
+				    // If the config to show the address input is set
+				    if(settings.addressInput){
+				    	// Insert the address input before the main element
+				    	$(el).before('<div class="floating-address-panel"><input id="address-input-' + additionalIndex + '" type="text" class="address-input"><input id="submit-address-panel-' + additionalIndex + '" type="button" value="' + settings.addressButtonString + '" class="submit-address-panel"></div>');
+
+				    	// Create the geocoder object
+				    	var geocoder = new google.maps.Geocoder();
+				    	// Adds the geocoder click listener event
+				    	document.getElementById('submit-address-panel-' + additionalIndex).addEventListener('click', function() {
+					    	// Get the address from the address input
+						    var address = document.getElementById('address-input-' + additionalIndex).value;
+						    // Retrieve the geocode information using the address
+						  	geocoder.geocode({'address': address}, function(results, status) {
+						  		// If the geocoder got a OK status
+							    if (status === google.maps.GeocoderStatus.OK) {
+							    	// Set this address position in the map
+						      		map.setCenter(results[0].geometry.location);
+							    } else {
+							    	// If any error appeared show this on console
+							      	console.log('Geocode was not successful for the following reason: ' + status);
+							    }
+						  	});
+				  		});
+				    }
+
 				    // Create the variable used for the marker
 		        	var marker;
 
