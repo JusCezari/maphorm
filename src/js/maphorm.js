@@ -102,8 +102,12 @@
 				    
 				    // If the config to show the address input is set
 				    if(settings.addressInput){
-				    	// Insert the address input before the main element
-				    	$(el).before('<div class="floating-address-panel"><input id="address-input-' + additionalIndex + '" type="text" class="address-input"><input id="submit-address-panel-' + additionalIndex + '" type="button" value="' + settings.addressButtonString + '" class="submit-address-panel"></div>');
+
+						// Se não tiver nenhum elemento do tipo .floating-address-panel
+				    	if($('.floating-address-panel').length == 0){
+			    			// Insert the address input before the main element
+					    	$(el).before('<div class="floating-address-panel"><input id="address-input-' + additionalIndex + '" type="text" class="address-input"><input id="submit-address-panel-' + additionalIndex + '" type="button" value="' + settings.addressButtonString + '" class="submit-address-panel"></div>');
+				    	}
 
 				    	// Create the geocoder object
 				    	var geocoder = new google.maps.Geocoder();
